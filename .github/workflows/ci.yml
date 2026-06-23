@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Set up dynamic environment
+      # uv sync reads the configuration from the files pyproject.toml and uv.lock automatically
+        run: uv sync --frozen
+
+      - name: Run Tests
+      # using uv run ensures pytest is executed within the project's virtual environment
+        run: uv run pytest --cov=expense_agent --cov-report=xml:coverage_report.xml
+      # used xml as the standard format for the coverage files
+
+      - name: Upload Coverage report
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage_report.xml
