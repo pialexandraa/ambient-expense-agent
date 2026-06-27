@@ -345,6 +345,7 @@ async def hitl_approval(ctx: Context, node_input: dict):
         yield RequestInput(
             interrupt_id="expense_decision",
             message=msg,
+            response_schema=str,
         )
         return
 
