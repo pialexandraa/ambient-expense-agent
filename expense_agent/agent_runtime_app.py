@@ -18,8 +18,8 @@ logger = logging.getLogger("expense_agent_runtime")
 app = get_fast_api_app(
     agents_dir="expense_agent",
     web=False,
-    otel_to_cloud=False,
-    trace_to_cloud=False,
+    otel_to_cloud=True,
+    trace_to_cloud=True,
     trigger_sources=["pubsub"]
 )
 
