@@ -103,4 +103,3 @@ When an expense exceeds the **$50.00 threshold**, it requires human approval. Th
 
 * **In the Playground**: The agent yields a prompt requesting your decision. The UI renders a text field allowing you to type `yes` or `no` to approve/reject the expense.
 * **On the Web Server**: The server does not block the request. It automatically saves the agent's state to a local SQLite database (`session.db`) and pauses. To resume the workflow, an external application (like Slack or email) sends a `POST` request containing the decision to the endpoint.
-
