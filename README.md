@@ -1,22 +1,25 @@
-# About
+## About
 
 This is an event-driven expense evaluation agent built with Google's Agent Development Kit (ADK) and human intervetion. The tool goes a bit beyond the standard code-generated project.
 
 The human intervention in this case included (besides the standard orchestration): code modifications to fit the needs, optimizations for performance improvements, security tweaks, and automated pipeline(s).
 
-# Stack and structure
+## Stack and structure
 
 The tools/stack used are: Gemini (various models), Antigrativity and IDE, ADK v.2.0 (the Google's Agent creation toolkit), and other code editors and local machine items.
 
 The functioning mechanism of this agent is intended to be in 2 ways:
 1. Can be a browser-based app that ingests JSON payloads and follows a specific approval sequence.
 
-For visualization purposes, this is what it looks like during testing; plus, at the left side, the approval schema (step-by-step):
+For visualization purposes, this is what it looks like during testing; plus, at the left side, the approval schema (step-by-step)
 
+<p align="center">
+   <img width="800" height="600" src="assets/direct_approval.png">
+</p>
 
-
-
-
+<p align="center">
+   <img width="800" height="600" src="assets/pending_human_approval.png">
+</p>
 
 2. Can be (truly) an ambient agent/tool that runs in the background and handles the approval/refusal processes.
 
@@ -24,7 +27,9 @@ In this case, the FastAPI web server would run for example in production and for
 
 By looking at this schema, the background process, truly ambient, would like that:
 
-
+<p align="center">
+   <img width="500" height="300" src="assets/general.jpg">
+</p>
 
 It runs as a background process that automatically processes expense reports sent via Pub/Sub events, filters out PII, checks for prompt injection, automatically approves low-value expenses, runs LLM risk analysis on high-value expenses (over the value of 50$), and suspends for human review if necessary.
 
@@ -83,7 +88,7 @@ This runs the agent as a background web service listening to webhooks or Pub/Sub
        -d '{"message": {"data": "eyJhbW91bnQiOiAyNTAuMCwgInN1Ym1pdHRlciI6ICJhbGljZUBjb21wYW55LmNvbSIsICJjYXRlZ29yeSI6ICJzb2Z0d2FyZSIsICJkZXNjcmlwdGlvbiI6ICJFbnRlcnByaXNlIFN1YnNjcmlwdGlvbiIsICJkYXRlIjogIjIwMjYtMDYtMjgifQ=="}, "subscription": "projects/my-project/subscriptions/my-sub"}'
      ```
 
-  * **Malicious payload**:
+   * **Malicious payload**:
     ```bash
     curl -s http://localhost:8080/apps/expense_agent/trigger/pubsub \
       -H "Content-Type: application/json" \
